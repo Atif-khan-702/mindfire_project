@@ -1,0 +1,42 @@
+Online Parlour Appointment System
+
+
+ 1.	Abstract :
+
+This Online Parlour Appointment System will provide an online platform to the customers to book their appointment at any Parlour based on their searched locality. Customer will get their token number from the respective parlour and the estimate waiting time for his/her service after booking.
+
+ 2.	Existing System :
+
+Initially, customers used to wait in queue at parlours in weekend or in peak hours. This was actually wastage of time. Customers who are new in city had lot of trouble finding the parlour of their choice.
+
+3.  Proposed System:
+		
+The proposed system will eliminate the drawbacks of existing system. The customers can get their appointment at the respective parlour on first come first serve basis. Customers will be given a token number and estimate waiting time, so that he/she can do their other productive works without wasting their time at parlour shop.
+Customers can search for the parlour based on the locality. The search list will show all the parlours with total number of persons waiting in queue and total waiting time for new service at the respective parlour. Every parlour will have their price menu for the various services offered.
+
+4.  User types:	
+Admin
+Customer
+Shop Owner
+
+5.  Modules:
+Admin: 
+It will be used by admin to create or manage parlour shop.
+Admin will get registration request from new shop (admin will approve/deny).
+Admin can remove shop on basis of customer’s rating.
+Customer:
+New customers can register themselves.
+Edit profile.
+View booking history.
+Search for parlour shop based on locality.
+Rate parlour based on service.
+Shop Owner:
+Register shop.
+GST NO.
+Service Type (Men’s/Women’s).
+Price menu for various services.
+Locality.
+Login/logout.
+Receive appointment request from customers.
+Can update price menu.
+Provide estimate time and token number to customer.
