@@ -1,0 +1,471 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4></mdb-navbar-brand>
+  
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+  
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect (click)="BackToHome()"><mdb-icon fas icon="home"></mdb-icon> Home<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect routerLink="/doctorAppointmentList"><mdb-icon far icon="plus-square"></mdb-icon>Appointment List<span class="sr-only">(current)</span></a>
+          </li>
+
+          <li class="nav-item" *ngIf="flag">
+            <a class="nav-link waves-light" mdbWavesEffect (click)="frame.show()" data-toggle="modal" data-target="#basicExample"><mdb-icon far icon="plus-square"></mdb-icon>Availability Details<span class="sr-only">(current)</span></a>
+          </li>
+  
+        
+          <li class="nav-item">
+            <form [formGroup]="searchForm" (ngSubmit)="searchDisease()" class="form-inline waves-light waves-light ml-auto" mdbWavesEffect>
+              <div class="md-form my-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" name="diseasesName" formControlName="diseasesName" aria-label="Search" mdbInput>
+                  <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit" mdbWavesEffect>Search</button>
+              </div>
+              </form>
+          </li>
+  
+         
+         <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorInfo"><strong>{{Name}}</strong><br>{{Email}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorAppointmentList"> My Appointment </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorFeedback"> My Feedback </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorUpdate" > View/Update profile </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > settings </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorChangePassword"> Change Password </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->
+
+
+  <!-- <button type="button" mdbBtn color="default" rounded="true" 
+   mdbWavesEffect>Launch Modal</button> -->
+
+<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h5 style="margin-top: 10px;"><strong>Availability Information</strong></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form [formGroup]="availableForm" (ngSubmit)="addAvailability()">
+      <div class="modal-body mx-3">
+          <div class="form-group">
+            <div class="row">
+                <label>Doctor ID</label>
+                <input type="text" id="id2" class="form-control" formControlName="id2" name="id2" readonly>
+            </div>
+
+            <div class="row">
+              <label>Consultancy Day</label><br>
+                <select id="day" class="form-control" [class.is-invalid]="day.invalid && day.touched" formControlName="day" name="day">
+                    <option value="Weekend(Sat-Sun)">Weekend(Sat-Sun)</option>
+                    <option value="Working Days(Mon-Fri)">Working Days(Mon-Fri)</option>
+                    <option value="Daily">Daily</option>
+                </select>
+                <div *ngIf="day.invalid && day.touched">
+                    <small class="text-danger" *ngIf="day.errors?.required">Consultancy Day is required</small>
+                </div>
+            </div>
+
+            <div class="row">
+              <label>Consultancy Mode</label><br>
+              <select name="mode" class="form-control" [class.is-invalid]="mode.invalid && mode.touched" formControlName="mode">
+                  <option value="" >--select--</option>
+                  <option value="Audio">Audio</option>
+                  <option value="Video">Video</option>
+                  <option value="Chat">Chat</option>
+                  </select>
+                  <div *ngIf="mode.invalid && mode.touched">
+                      <small class="text-danger" *ngIf="mode.errors?.required">Consultancy Mode is required</small>
+                  </div>
+           </div>
+
+            <div class="row">
+              <label>Consultancy Shift</label><br>
+                <select name="shift" (change)="maintainShift($event.target.value)" class="form-control" [class.is-invalid]="shift.invalid && shift.touched" formControlName="shift">
+                    <option value="">Choose</option>
+                    <option value="Morning">Morning</option>
+                    <option value="Evening">Evening</option>
+                </select>
+                <div *ngIf="shift.invalid && shift.touched">
+                    <small class="text-danger" *ngIf="shift.errors?.required">Shift is required</small>
+                </div>
+            </div>
+
+            <div class="row">
+              <label>Time Slot</label><br>
+                <select name="timeslot" class="form-control" [class.is-invalid]="timeslot.invalid && timeslot.touched" formControlName="timeslot">
+                    <option *ngFor="let time of timeShift" [value]="time">{{time}}</option>
+                </select>
+                <div *ngIf="timeslot.invalid && timeslot.touched">
+                    <small class="text-danger" *ngIf="timeslot.errors?.required">Time Slot is required</small>
+                </div>
+            </div>
+
+            <div class="row">
+              <label>Patient Time</label><br>
+              <select class="form-control"  [class.is-invalid]="patientTime.invalid && patientTime.touched" formControlName="patientTime" name="patientTime">
+                  <option value="15 Mins" >15 Mins</option>
+                  <option value="20 Mins">20 Mins</option>
+                  <option value="30 Mins">30 Mins</option>
+                  
+              </select>
+              <div *ngIf="patientTime.invalid && patientTime.touched">
+                  <small class="text-danger" *ngIf="patientTime.errors?.required">Patient Time is required</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button mdbBtn color="default" class="waves-light"  data-dismiss="modal" aria-label="Close" (click)="frame.hide()" type="submit" mdbWavesEffect>Save Changes</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<br>
+  <div class="row cardform">
+    <div class="col-md-12">
+      <!--Card-->
+      <mdb-card cascade="true" wider="true" class="text-left">
+  
+        <mdb-card-body cascade="true">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 style="margin-top: 10px;"><strong>Personal Information</strong></h5>
+                </div>
+                <div class="col-md-6"></div>
+                <div class="col-md-2">
+                    <button mdbBtn class="waves-light btn-info" routerLink="/doctorInfo" mdbWavesEffect>View Profile</button>
+                </div>
+            </div>
+            <hr>
+  
+          <mdb-card-text>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label><strong>Doctor ID:</strong></label>
+                    </div>
+                    <div class="col-md-3">
+                      <label>{{ID}}</label>
+                  </div>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-2">
+                      <label><strong>Name:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Name}}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <label><strong>Specialization:</strong></label>
+                </div>
+                <div class="col-md-3">
+                  <label>{{Spec}}</label>
+                </div>
+                  
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                      <label><strong>Email:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Email}}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <label><strong>Consultancy Day:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Day}}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                      <label><strong>Phone:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Phone}}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <label><strong>Shift:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Shift}}</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2">
+                      <label><strong>Gender:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{Gender}}</label>
+                  </div>
+                </div>         
+          </mdb-card-text>
+        </mdb-card-body>
+        <!--/.Card content-->
+  
+      </mdb-card>
+      <!--/.Card-->
+    </div>
+</div>
+
+<div  *ngIf="flag2" class="row cardform">
+  <div class="col-md-12">
+    <!--Card-->
+    <mdb-card cascade="true" wider="true" class="text-left">
+
+      <mdb-card-body cascade="true">
+          <div class="row">
+              <div class="col-md-4">
+                  <h5 style="margin-top: 10px;"><strong>Appointment Information</strong></h5>
+              </div>
+              <div class="col-md-6"></div>
+                <div class="col-md-2">
+                    <button mdbBtn class="waves-light btn-info" routerLink="/doctorAppointmentList" mdbWavesEffect>View More</button>
+                </div>
+          </div>
+          <hr>
+
+        <mdb-card-text>
+              <div class="row">
+                  <div class="col-md-2">
+                      <label><strong>Appointment ID:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{appointments[length-1]['AppointmentId']}}</label>
+                  </div>
+                  <div class="col-md-2">
+                    <label><strong>Appointment Date:</strong></label>
+                  </div>
+                  <div class="col-md-3">
+                    <label>{{appointments[length-1]['Date']}}</label>
+                  </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-md-2">
+                    <label><strong>Doctor Name:</strong></label>
+                </div>
+                <div class="col-md-3">
+                  <label>Dr. {{appointments[length-1]['DoctorName']}}</label>
+                </div>
+                <div class="col-md-2">
+                  <label><strong>Patient ID:</strong></label>
+              </div>
+                <div class="col-md-3">
+                  <label>{{appointments[length-1]['PatientId']}}</label>
+                </div>                  
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                    <label><strong>Patient Name:</strong></label>
+                </div>
+                <div class="col-md-3">
+                  <label>{{appointments[length-1]['PatientName']}}</label>
+                </div>
+                <div class="col-md-2">
+                  <label><strong>Patient Email:</strong></label>
+              </div>
+              <div class="col-md-3">
+                <label>{{appointments[length-1]['PatientEmail']}}</label>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                    <label><strong>Patient Phone:</strong></label>
+                </div>
+                <div class="col-md-3">
+                  <label>{{appointments[length-1]['PatientPhone']}}</label>
+                </div>
+                <div class="col-md-2">
+                  <label><strong>Consultant Time:</strong></label>
+              </div>
+              <div class="col-md-3">
+                <label>{{appointments[length-1]['TimeSlot']}}</label>
+              </div>
+              </div>
+              <div class="row">
+                <div class="col-md-2">
+                    <label><strong>Status:</strong></label>
+                </div>
+                <div class="col-md-3">
+                  <label>{{appointments[length-1]['Status']}}</label>
+                </div>
+                
+              </div>         
+        </mdb-card-text>
+      </mdb-card-body>
+      <!--/.Card content-->
+
+    </mdb-card>
+    <!--/.Card-->
+  </div>
+</div>
+
+
+
+
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-4 mx-auto">
+  
+   <!-- Content -->
+   <h5 class="font-weight-bold mt-3 mb-4">DocsHelp</h5>
+   <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing
+     elit.</p>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">About Us</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Blog</a>
+     </li>
+     <li>
+       <a href="#!">About us</a>
+     </li>
+     <li>
+       <a href="#!">Premium</a>
+     </li>
+     <li>
+       <a href="#!">Affiliated program</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help and Support</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">FAQ</a>
+     </li>
+     <li>
+       <a href="#!">Contact Us</a>
+     </li>
+     <li>
+       <a href="#!">Premium Support</a>
+     </li>
+     <li>
+       <a href="#!">Custom Developers</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Legal</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Terms & Conditions</a>
+     </li>
+     <li>
+       <a href="#!">Privacy</a>
+     </li>
+   </ul>
+  
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <hr>
+  
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="fb" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="facebook"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="tw" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="gplus" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="li" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="linkedin"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="dribbble" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="dribbble"></mdb-icon>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="#"> Docshelp.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+  

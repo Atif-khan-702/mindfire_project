@@ -1,0 +1,28 @@
+.intro-header {
+    height: unset !important;
+  }
+  .intro-2 {
+    background: url("D:/Angular Material/mdb-angular-free-9.0.1/mdb-angular-free/src/assets/images/bg2.jpg")no-repeat center center;
+    background-size: cover;
+  }
+  .view {
+    height: 115vh !important;
+  }
+  
+  .rgba-gradient .full-bg-img {
+    background: linear-gradient(45deg, rgba(83, 125, 210, 0.4), rgba(178, 30, 123, 0.4) 100%);
+  }
+  .full-bg-img {
+    height: 100%;
+  }
+  h6 {
+    line-height: 1.7;
+  }
+  @media (max-width: 740px) {
+    .full-height,
+    .full-height body,
+    .full-height header,
+    .full-height header .view {
+      height: 1040px;
+    }
+  }

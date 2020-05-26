@@ -1,0 +1,76 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4></mdb-navbar-brand>
+  
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+  
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/profileDoctor"><mdb-icon fas icon="home"></mdb-icon> Profile<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect><mdb-icon far icon="plus-square"></mdb-icon>Appointment List<span class="sr-only">(current)</span></a>
+        </li>
+  
+         
+         <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorInfo"><strong>{{Name}}</strong><br>{{Email}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorAppointmentList"> My Appointment </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > My Feedback </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorUpdate" > View/Update profile </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > settings </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorChangePassword"> Change Password </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->
+
+  <!-- <div class="heading text-center">
+    <div class="card" style="width:60%;margin-left: 20%;">
+      <div class="card-body"><h5>{{ msg }}</h5></div> 
+    </div>
+</div> -->
+
+<!--Grid row-->
+<div class="row cardform" *ngFor="let appointment of appointments">
+
+    <div class="col-md-1"></div>
+  <!--Grid column-->
+    <div class="col-md-10" *ngIf="appointment['Feedback'] !== ''">
+  
+      <mdb-card class="testimonial-card">
+        <!--Bacground color-->
+  
+        <mdb-card-body>
+          <!--Name-->
+          <mdb-card-title>
+            <h4>{{appointment['PatientName']}}</h4>
+          </mdb-card-title>
+          <hr>
+          <h5 style="margin-top: 10px;"><mdb-icon far icon="thumbs-up"></mdb-icon> I recommend the doctor</h5>
+          <!--Quotation-->
+          <br>
+          <p>
+            <mdb-icon fas icon="quote-left"></mdb-icon> {{appointment['Feedback']}}</p>
+        </mdb-card-body>
+      </mdb-card>
+  
+    </div>
+    <!--Grid column-->  
+  </div>
+  <!--Grid row-->

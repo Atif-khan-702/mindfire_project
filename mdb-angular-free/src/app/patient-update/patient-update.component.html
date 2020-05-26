@@ -1,0 +1,351 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4></mdb-navbar-brand>
+  
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+  
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/profilePatient"><mdb-icon fas icon="home"></mdb-icon>Profile<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect routerLink="/patientAppointment"><mdb-icon far icon="plus-square"></mdb-icon>Book Appointment<span class="sr-only">(current)</span></a>
+          </li>
+  
+          <!-- <li class="nav-item">
+            <form [formGroup]="searchForm" (ngSubmit)="searchDisease()" class="form-inline waves-light waves-light ml-auto" mdbWavesEffect>
+              <div class="md-form my-0">
+                  <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" name="diseasesName" formControlName="diseasesName" aria-label="Search" mdbInput>
+                  <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit" mdbWavesEffect>Search</button>
+              </div>
+              </form>
+          </li> -->
+  
+         
+         <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientInfo"><strong>{{Name}}</strong><br>{{Email}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientAppointmentList"> My Appointment </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > My Test </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > My Medical Report </a>
+            <!-- <a class="dropdown-item waves-light" mdbWavesEffect > My Feedback </a> -->
+            <a class="dropdown-item waves-light" mdbWavesEffect > View/Update profile </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > settings </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientChangePassword"> Change Password </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->
+
+<br>
+  <div class="row cardform">
+    <div class="col-md-12">
+      <!--Card-->
+      <mdb-card cascade="true" wider="true" class="text-left">
+  
+        <mdb-card-body cascade="true">
+            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col-md-2">
+                    <h5 style="margin-top: 10px;"><strong>Accounts</strong></h5>
+                </div>
+                <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <button mdbBtn class="waves-light btn-info" type="submit" mdbWavesEffect>Save Changes</button>
+                </div>
+            </div>
+            <hr>
+  
+          <mdb-card-text>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>profile Photo</label><br>
+                        <img src="../../assets/images/user1.jpg" style="width: 100px;height: 100px;"  alt="profile photo"><label>Pick a photo from your Files</label>
+                        <br><input type="file">
+                    </div>
+                    <div class="col-md-3">
+                        <br>
+                        <label>Name*</label>
+                        <input type="text" id="name" class="form-control" [class.is-invalid]="name.invalid && name.touched" formControlName="name" name="name">
+                        <div *ngIf="name.invalid && name.touched">
+                            <small class="text-danger" *ngIf="name.errors?.required">Name is required</small>
+                            <small class="text-danger" *ngIf="name.errors?.minlength">Name must be atleast 3 character</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <br>
+                        <label>ID</label>
+                        <input type="text" id="id" class="form-control" formControlName="id" name="id" readonly>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Phone</label><br>
+                        <input type="text" class="form-control" id="phone" [class.is-invalid]="phone.invalid && phone.touched" formControlName="phone" name="phone">
+                        <div *ngIf="phone.invalid && phone.touched">
+                            <small class="text-danger" *ngIf="phone.errors?.required">Phone is required</small>
+                            <small class="text-danger"  *ngIf="phone.errors?.minlength">Phone must be of 10 character</small>
+                            <small class="text-danger"  *ngIf="phone.errors?.maxlength">Phone must be of 10 character</small>
+                          </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Email Address</label><br>
+                        <input type="email" id="email" [class.is-invalid]="email.invalid && email.touched" class="form-control" formControlName="email" name="email">
+                        <div *ngIf="email.errors?.email">
+                            <small class="text-danger">Email not valid.</small>
+                       </div>
+                       <div *ngIf="email.invalid && email.touched">
+                        <small class="text-danger" *ngIf="email.errors?.required">Email is required</small>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Gender</label><br>
+                        <select id="gender" class="form-control" [class.is-invalid]="gender.invalid && gender.touched" formControlName="gender" name="gender">
+                            <option value="">--select--</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div *ngIf="gender.invalid && gender.touched">
+                            <small class="text-danger" *ngIf="gender.errors?.required">Gender is required</small>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Date Of Birth</label><br>
+                        <input type="date" id="dob" [class.is-invalid]="dob.invalid && dob.touched" formControlName="dob" class="form-control" name="dob">
+                            <div *ngIf="dob.invalid && dob.touched">
+                                <small class="text-danger" *ngIf="dob.errors?.required">DOB is required</small>
+                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Blood Group</label><br>
+                        <select id="bgroup" class="form-control" [class.is-invalid]="bgroup.invalid && bgroup.touched" formControlName="bgroup" name="bgroup">
+                            <option value="">--select--</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                        </select>
+                        <div *ngIf="bgroup.invalid && bgroup.touched">
+                            <small class="text-danger" *ngIf="bgroup.errors?.required">Blood Group is required</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Adhar</label><br>
+                        <input type="text" class="form-control" [class.is-invalid]="adhar.invalid && adhar.touched" formControlName="adhar" name="adhar" placeholder="Enter Adhar Number">
+                        <div *ngIf="adhar.invalid && adhar.touched">
+                            <small class="text-danger" *ngIf="adhar.errors?.required">Adhar is required</small>
+                            <small class="text-danger"  *ngIf="adhar.errors?.minlength">Adhar must be of 12 character</small>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <label style="margin-left: 20px;"><strong>Address</strong></label>
+                <div class="row">
+                    <div class="col-md-3">
+                        <label>Country</label><br>
+                        <select name="country" (change)="populate1($event.target.value)" class="form-control" [class.is-invalid]="country.invalid && country.touched" formControlName="country">
+                            <option value="" >--select--</option>
+                            <option value="India">India</option>
+                            <option value="Australia">Australia</option>
+                            <option value="America">America</option>
+                            </select>
+                            <div *ngIf="country.invalid && country.touched">
+                                <small class="text-danger" *ngIf="country.errors?.required">Country is required</small>
+                            </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>State</label><br>
+                        <select name="state" id="state" (change)="populate2($event.target.value)" class="form-control" [class.is-invalid]="state.invalid && state.touched" formControlName="state">
+                            <option *ngFor="let state of stateArray" [value]="state">{{state}}</option>
+                            
+                        </select>
+                        <div *ngIf="state.invalid && state.touched">
+                            <small class="text-danger" *ngIf="state.errors?.required">State is required</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label>City</label><br>
+                        <select id="city" class="form-control" [class.is-invalid]="city.invalid && city.touched" formControlName="city" name="city">
+                            <option *ngFor="let city of cityArray" [value]="city">{{city}}</option>
+                        </select>
+                        <div *ngIf="city.invalid && city.touched">
+                            <small class="text-danger" *ngIf="city.errors?.required">City is required</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+         </mdb-card-text>
+        </form>
+        </mdb-card-body>
+        <!--/.Card content-->
+  
+      </mdb-card>
+      <!--/.Card-->
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-4 mx-auto">
+  
+   <!-- Content -->
+   <h5 class="font-weight-bold mt-3 mb-4">DocsHelp</h5>
+   <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing
+     elit.</p>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">About Us</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Blog</a>
+     </li>
+     <li>
+       <a href="#!">About us</a>
+     </li>
+     <li>
+       <a href="#!">Premium</a>
+     </li>
+     <li>
+       <a href="#!">Affiliated program</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help and Support</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">FAQ</a>
+     </li>
+     <li>
+       <a href="#!">Contact Us</a>
+     </li>
+     <li>
+       <a href="#!">Premium Support</a>
+     </li>
+     <li>
+       <a href="#!">Custom Developers</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Legal</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Terms & Conditions</a>
+     </li>
+     <li>
+       <a href="#!">Privacy</a>
+     </li>
+   </ul>
+  
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <hr>
+  
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="fb" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="facebook"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="tw" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="gplus" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="li" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="linkedin"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="dribbble" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="dribbble"></mdb-icon>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="#"> Docshelp.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+  

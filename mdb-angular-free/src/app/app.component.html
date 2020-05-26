@@ -1,0 +1,188 @@
+<ngx-spinner
+bdColor="rgba(51,51,51,0.8)"
+size="large"
+color="dodgerblue"
+type="ball-scale-multiple">
+<p style="font-size: 20px; color:dodgerblue">Loading...</p>
+</ngx-spinner>
+
+<!--Navbar-->
+<mdb-navbar *ngIf="flag1" SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand>
+    <h4 class="navbar-brand" style="color: black;"><strong>{{title}}</strong> </h4>
+  </mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/home">
+          <mdb-icon fas icon="home"></mdb-icon> Home<span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <!-- Dropdown -->
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <mdb-icon fas icon="user"></mdb-icon> Signup<span class="caret"></span>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/registerDoctor">As a Doctor</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/register">As a Patient</a>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <mdb-icon fas icon="user"></mdb-icon> Login<span class="caret"></span>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/loginDoctor">As a Doctor</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/login">As a Patient</a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <form [formGroup]="searchForm" (ngSubmit)="searchDisease()" class="form-inline waves-light waves-light ml-auto"
+          mdbWavesEffect>
+          <div class="md-form my-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" name="diseasesName"
+              formControlName="diseasesName" aria-label="Search" mdbInput>
+            <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit"
+              mdbWavesEffect>Search</button>
+          </div>
+        </form>
+      </li>
+    </ul>
+    <!-- Links -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<!--Navbar-->
+<mdb-navbar *ngIf="flag3" SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand>
+    <h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4>
+  </mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/profilePatient">
+          <mdb-icon fas icon="home"></mdb-icon> Profile<span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/patientAppointment">
+          <mdb-icon far icon="plus-square"></mdb-icon>Book Appointment<span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <!-- <li class="nav-item">
+        <form [formGroup]="searchForm" (ngSubmit)="searchDisease()" class="form-inline waves-light waves-light ml-auto" mdbWavesEffect>
+          <div class="md-form my-0">
+              <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" name="diseasesName" formControlName="diseasesName" aria-label="Search" mdbInput>
+              <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit" mdbWavesEffect>Search</button>
+          </div>
+          </form>
+      </li> -->
+
+
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect
+            routerLink="/patientUpdate"><strong>{{Name}}</strong><br>{{Email}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientAppointmentList"> My Appointment </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect> My Test </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect> My Medical Report </a>
+          <!-- <a class="dropdown-item waves-light" mdbWavesEffect > My Feedback </a> -->
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientUpdate"> View/Update profile </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect> settings </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect> Change Password </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+        </div>
+      </li>
+    </ul>
+    <!-- Links -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+
+<!--Navbar-->
+<mdb-navbar *ngIf="flag2" SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+  <!-- Navbar brand -->
+  <mdb-navbar-brand>
+    <h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4>
+  </mdb-navbar-brand>
+
+  <!-- Collapsible content -->
+  <links>
+
+    <!-- Links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/profileDoctor">
+          <mdb-icon fas icon="home"></mdb-icon> Profile<span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link waves-light" mdbWavesEffect routerLink="/doctorAppointmentList">
+          <mdb-icon far icon="plus-square"></mdb-icon>Appointment List<span class="sr-only">(current)</span>
+        </a>
+      </li>
+
+      <!-- <li class="nav-item">
+          <form [formGroup]="searchForm" (ngSubmit)="searchDisease()" class="form-inline waves-light waves-light ml-auto" mdbWavesEffect>
+            <div class="md-form my-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" name="diseasesName" formControlName="diseasesName" aria-label="Search" mdbInput>
+                <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit" mdbWavesEffect>Search</button>
+            </div>
+            </form>
+        </li> -->
+
+
+      <li class="nav-item dropdown" dropdown>
+        <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+          <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span>
+        </a>
+        <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+          <a class="dropdown-item waves-light" mdbWavesEffect
+            routerLink="/doctorInfo"><strong>{{Name}}</strong><br>{{Email}}</a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorAppointmentList"> My Appointment </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorFeedback"> My Feedback </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorUpdate"> View/Update profile </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect> Settings </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/doctorChangePassword"> Change Password </a>
+          <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+        </div>
+      </li>
+    </ul>
+    <!-- Links -->
+  </links>
+  <!-- Collapsible content -->
+
+</mdb-navbar>
+<!--/.Navbar-->
+<router-outlet></router-outlet>

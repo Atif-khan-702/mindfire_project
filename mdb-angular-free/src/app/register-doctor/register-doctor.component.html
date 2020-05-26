@@ -1,0 +1,342 @@
+<div class="row registerSection">
+    <div class="col-md-5"></div>
+    <div class="col-md-6 registerCard">
+        <!-- Material form register -->
+<mdb-card>
+
+    <mdb-card-header class="info-color white-text text-center py-4">
+        <h2><strong>Get Started With an account</strong></h2>
+        <p>Create a free account to Register Yourself as a Doctor and help the Needy</p>
+    </mdb-card-header>
+  
+    <!--Card content-->
+    <mdb-card-body class="px-lg-5 pt-0">
+  
+      <!-- Form -->
+      <form class="text-center" [formGroup]="signupForm" (ngSubmit)="onSubmit()" style="color: #757575;">
+  
+        <div class="form-row">
+          <div class="col">
+            <!-- First name -->
+            <div class="md-form">
+              <input type="text" id="FirstName" class="form-control" formControlName="fname" name="fname" mdbInput>
+              <label for="FirstName">First name</label>
+              <div *ngIf="fname.invalid && fname.touched">
+                <small class="text-danger" *ngIf="fname.errors?.required">First Name is required</small>
+                <small class="text-danger"  *ngIf="fname.errors?.minlength">First Name must be atleast 3 character</small>
+            </div>
+            </div>
+          </div>
+          <div class="col">
+            <!-- Last name -->
+            <div class="md-form">
+              <input type="text" id="LastName" class="form-control" formControlName="lname" name="lname" mdbInput>
+              <label for="LastName">Last name</label>
+              <div *ngIf="lname.invalid && lname.touched">
+                <small class="text-danger" *ngIf="lname.errors?.required">Last Name is required</small>
+                <small class="text-danger"  *ngIf="lname.errors?.minlength">Last Name must be atleast 3 character</small>
+            </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- E-mail -->
+        <div class="md-form mt-0">
+          <input type="email" id="Email" class="form-control" formControlName="email" name="email" mdbInput>
+          <label for="Email">E-mail</label>
+          <div *ngIf="email.invalid && email.touched">
+            <small class="text-danger" *ngIf="email.errors?.required">Email is required</small>
+          </div>
+          <div *ngIf="email.errors?.email">
+            <small class="text-danger">Email not valid.</small>
+       </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col">
+              <!-- phone -->
+              <div class="md-form">
+                <input type="text" id="phone" class="form-control" formControlName="phone" name="phone" mdbInput>
+                <label for="phone">Phone</label>
+                <div *ngIf="phone.invalid && phone.touched">
+                    <small class="text-danger" *ngIf="phone.errors?.required">Phone is required</small>
+                    <small class="text-danger"  *ngIf="phone.errors?.minlength">Phone must be of 10 character</small>
+                    <small class="text-danger"  *ngIf="phone.errors?.maxlength">Phone must be of 10 character</small>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <!-- Adhar -->
+              <div class="md-form">
+                <input type="text" id="adhar" class="form-control" formControlName="adhar" name="adhar" mdbInput>
+                <label for="adhar">Adhar Number</label>
+                <div *ngIf="adhar.invalid && adhar.touched">
+                    <small class="text-danger" *ngIf="adhar.errors?.required">Adhar is required</small>
+                    <small class="text-danger"  *ngIf="adhar.errors?.minlength">Adhar must be of 12 character</small>
+                    <small class="text-danger"  *ngIf="adhar.errors?.maxlength">Adhar must be of 12 character</small>
+                  </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Qualification -->
+        <div class="md-form mt-0">
+            <input type="text" id="Qualification" class="form-control" formControlName="qualification" name="qualification" mdbInput>
+            <label for="Qualification">Qualification</label>
+            <div *ngIf="qualification.invalid && qualification.touched">
+                <small class="text-danger" *ngIf="qualification.errors?.required">Qualification is required</small>
+              </div>
+          </div>
+
+        <div class="form-row">
+            <div class="col">
+              <!-- specializatiion -->
+              <div class="md-form">
+                <!-- <input type="text" id="Specialization" class="form-control" formControlName="specialization" name="specialization" mdbInput> -->
+                <select style="border-top: 0px;border-left: 0px;border-right: 0px;" id="specialization" class="form-control" [class.is-invalid]="specialization.invalid && specialization.touched" formControlName="specialization" name="specialization">
+                  <option value="">specialization</option>
+                  <option value="General Physician">General Physician</option>
+                  <option value="Skin Problems">Skin Problems</option>
+                  <option value="Sexual Problems">Sexual Problems</option>
+                  <option value="Woman's issues">Woman's issues</option>
+                  <option value="Hair and Scalp Problems">Hair and Scalp Problems</option>
+                  <option value="Weight Management">Weight Management</option>
+                  <option value="Pregnency Problems">Pregnency Problems</option>
+                  <option value="Stress and Mental Health">Stress and Mental Health</option>
+                  <option value="Acidity, Gas, Stomach Issue">Acidity, Gas, Stomach Issue</option>
+                  <option value="Orthopedics - Bones, Joints Issues">Orthopedics - Bones, Joints Issues</option>
+                  <option value="Cancer Advice">Cancer Advice</option>
+                  <option value="Breast feeding advice">Breast feeding advice</option>
+                  <option value="Diabetes Consult">Diabetes Consult</option>
+                  <option value="Neurology">Neurology</option>
+                  <option value="Child/Infact Issue">Child/Infact Issue</option>
+                  <option value="Conceiving issues">Conceiving issues</option>
+                  <option value="Cardiac Issue - Heart Related issues">Cardiac Issue - Heart Related issues</option>
+              </select>
+                <!-- <label for="Specialization">Specialization</label> -->
+                <div *ngIf="specialization.invalid && specialization.touched">
+                    <small class="text-danger" *ngIf="specialization.errors?.required">Specialization is required</small>
+                  </div>
+              </div>
+            </div>
+            <div class="col">
+              <!-- Experience -->
+              <div class="md-form">
+                <!-- <input type="text" id="Experience" class="form-control" formControlName="experience" name="experience" mdbInput>
+                <label for="Experience">Experience</label> -->
+                <select style="border-top: 0px;border-left: 0px;border-right: 0px;" id="experience" class="form-control" [class.is-invalid]="experience.invalid && experience.touched" formControlName="experience" name="experience">
+                  <option value="">Experience</option>
+                  <option value="6 Months">6 Months</option>
+                  <option value="1 Year">1 Year</option>
+                  <option value="1-3 Years">1-3 Years</option>
+                  <option value="3+ Years">3+ Years</option>
+              </select>
+                <div *ngIf="experience.invalid && experience.touched">
+                    <small class="text-danger" *ngIf="experience.errors?.required">Experience is required</small>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+           <!-- Password -->
+        <div class="md-form">
+            <input type="password" id="Password" class="form-control" formControlName="password" name="password" aria-describedby="materialRegisterFormPasswordHelpBlock"
+              mdbInput>
+            <label for="Password">Password</label>
+            <div *ngIf="password.invalid && password.touched">
+                <small class="text-danger" *ngIf="password.errors?.required">Password is required</small>
+                <small class="text-danger"  *ngIf="password.errors?.minlength">Password must be atleast 3 character</small>
+            </div>
+          </div>
+
+           <!-- confirm Password -->
+        <div class="md-form">
+            <input type="password" id="cnf_Password" formControlName="cnf_pass" name="cnf_pass" [class.is-invalid]="signupForm.errors?.mismatch || cnf_pass.invalid && cnf_pass.touched" class="form-control" aria-describedby="materialRegisterFormPasswordHelpBlock"
+              mdbInput>
+              <small class="text-danger"  *ngIf="signupForm.errors?.mismatch">password do not match</small>
+            <label for="cnf_Password">confirm Password</label>
+            <div *ngIf="cnf_pass.invalid && cnf_pass.touched">
+                <small class="text-danger" *ngIf="cnf_pass.errors?.required">confirm Password is required</small>
+            </div>
+          </div>
+  
+        <!-- Newsletter -->
+        <mdb-checkbox>Subscribe to our newsletter</mdb-checkbox>
+  
+        <!-- Sign up button -->
+        <button mdbBtn color="info" outline="true" [disabled]="signupForm.invalid" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
+          type="submit">Sign in</button>
+  
+        <!-- Social register -->
+        <p>or sign up with:</p>
+  
+        <a type="button" class="light-blue-text mx-2">
+          <mdb-icon fab icon="facebook"></mdb-icon>
+        </a>
+        <a type="button" class="light-blue-text mx-2">
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+        <a type="button" class="light-blue-text mx-2">
+          <mdb-icon fab icon="linkedin"></mdb-icon>
+        </a>
+        <a type="button" class="light-blue-text mx-2">
+          <mdb-icon fab icon="heart"></mdb-icon>
+        </a>
+  
+        <hr>
+  
+        <!-- Terms of service -->
+        <p>By clicking
+          <em>Sign up</em> you agree to our
+          <a href="" target="_blank">terms of service</a>. </p>
+  
+      </form>
+      <!-- Form -->
+  
+    </mdb-card-body>
+  
+  </mdb-card>
+  <!-- Material form register -->
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+
+      <!-- Grid row -->
+      <div class="row">
+
+        <!-- Grid column -->
+        <div class="col-md-4 mx-auto">
+
+           <!-- Content -->
+           <h5 class="font-weight-bold mt-3 mb-4">DocsHelp</h5>
+           <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing
+             elit.</p>
+ 
+         </div>
+         <!-- Grid column -->
+ 
+         <hr class="clearfix w-100 d-md-none">
+ 
+         <!-- Grid column -->
+         <div class="col-md-2 mx-auto">
+ 
+           <!-- Links -->
+           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">About Us</h5>
+ 
+           <ul class="list-unstyled">
+             <li>
+               <a href="#!">Blog</a>
+             </li>
+             <li>
+               <a href="#!">About us</a>
+             </li>
+             <li>
+               <a href="#!">Premium</a>
+             </li>
+             <li>
+               <a href="#!">Affiliated program</a>
+             </li>
+           </ul>
+ 
+         </div>
+         <!-- Grid column -->
+ 
+         <hr class="clearfix w-100 d-md-none">
+ 
+         <!-- Grid column -->
+         <div class="col-md-2 mx-auto">
+ 
+           <!-- Links -->
+           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help and Support</h5>
+ 
+           <ul class="list-unstyled">
+             <li>
+               <a href="#!">FAQ</a>
+             </li>
+             <li>
+               <a href="#!">Contact Us</a>
+             </li>
+             <li>
+               <a href="#!">Premium Support</a>
+             </li>
+             <li>
+               <a href="#!">Custom Developers</a>
+             </li>
+           </ul>
+ 
+         </div>
+         <!-- Grid column -->
+ 
+         <hr class="clearfix w-100 d-md-none">
+ 
+         <!-- Grid column -->
+         <div class="col-md-2 mx-auto">
+ 
+           <!-- Links -->
+           <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Legal</h5>
+ 
+           <ul class="list-unstyled">
+             <li>
+               <a href="#!">Terms & Conditions</a>
+             </li>
+             <li>
+               <a href="#!">Privacy</a>
+             </li>
+           </ul>
+ 
+
+        </div>
+        <!-- Grid column -->
+
+      </div>
+      <!-- Grid row -->
+
+    </div>
+    <!-- Footer Links -->
+
+    <hr>
+
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="fb" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="facebook"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="tw" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="gplus" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="li" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="linkedin"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="dribbble" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="dribbble"></mdb-icon>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="#"> Docshelp.com</a>
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+  <!-- Footer -->

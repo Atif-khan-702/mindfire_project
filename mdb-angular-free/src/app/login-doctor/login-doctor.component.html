@@ -1,0 +1,224 @@
+<!-- Material form login -->
+<div class="row loginSection">
+    <div class="col-md-1"></div>
+    <div class="col-md-6 loginCard">
+        <mdb-card>
+
+            <mdb-card-header class="info-color white-text text-center py-4">
+              <h2><strong>Welcome Doctor !</strong></h2>
+              <p>Enter Your Email and password to get Login</p>
+            </mdb-card-header>
+          
+          
+            <!--Card content-->
+            <mdb-card-body class="px-lg-5 pt-0">
+              <h5 style="text-align:center;color: green;margin-top: 10px;" *ngIf="infoMessage !== '' ">{{ infoMessage }}</h5>
+              <h5 style="text-align:center;color: red;margin-top: 10px;" *ngIf="errorMessage !== '' ">{{ errorMessage }}</h5>
+              <!-- Form -->
+              <form class="text-center" [formGroup]="DoctorloginForm" (ngSubmit)="onSubmit()" style="color: #757575;">
+          
+                <!-- Email -->
+                <div class="md-form">
+                  <input type="email" id="materialLoginFormEmail" class="form-control" formControlName="email" name="email" mdbInput>
+                  <label for="materialLoginFormEmail">E-mail</label>
+                  <div *ngIf="email.invalid && email.touched">
+                    <small class="text-danger" *ngIf="email.errors?.required">Email is required</small>
+                    <small class="text-danger"  *ngIf="email.errors?.minlength">Email must be atleast 3 character</small>
+                </div>
+                </div>
+          
+                <!-- Password -->
+                <div class="md-form">
+                  <input type="password" id="materialLoginFormPassword" class="form-control" formControlName="password" name="password" mdbInput>
+                  <label for="materialLoginFormPassword">Password</label>
+                  <div *ngIf="password.invalid && password.touched">
+                    <small class="text-danger" *ngIf="password.errors?.required">password is required</small>
+                    <small class="text-danger"  *ngIf="password.errors?.minlength">password must be atleast 3 character</small>
+                </div>
+                </div>
+          
+                <div class="d-flex justify-content-around">
+                  <div>
+                   
+                    <mdb-checkbox>Remember me</mdb-checkbox>
+                  </div>
+                  <div>
+                   
+                    <a href="">Forgot password?</a>
+                  </div>
+                </div>
+          
+                <!-- Sign in button -->
+                <button mdbBtn color="info" outline="true" [disabled]="DoctorloginForm.invalid" rounded="true" block="true" class="my-4 waves-effect z-depth-0" mdbWavesEffect
+                  type="submit">Sign in</button>
+          
+                <!-- Register -->
+                <p>Not a member?
+                  <a routerLink="/registerDoctor">Register</a>
+                </p>
+          
+                <!-- Social login -->
+                <p>or sign in with:</p>
+                <a type="button" mdbBtn floating="true" color="fb" size="sm">
+                  <mdb-icon fab icon="facebook"></mdb-icon>
+                </a>
+                <a type="button" mdbBtn floating="true" color="tw" size="sm">
+                  <mdb-icon fab icon="twitter"></mdb-icon>
+                </a>
+                <a type="button" mdbBtn floating="true" color="li" size="sm">
+                  <mdb-icon fab icon="linkedin"></mdb-icon>
+                </a>
+                <a type="button" mdbBtn floating="true" color="git" size="sm">
+                  <mdb-icon fab icon="github"></mdb-icon>
+                </a>
+          
+              </form>
+              <!-- Form -->
+          
+            </mdb-card-body>
+          
+          </mdb-card>
+          <!-- Material form login -->
+    </div>
+    <div class="col-md-5"></div>
+</div>
+
+<!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+  <!-- Footer Links -->
+  <div class="container text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-4 mx-auto">
+
+ <!-- Content -->
+ <h5 class="font-weight-bold mt-3 mb-4">DocsHelp</h5>
+ <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing
+   elit.</p>
+
+</div>
+<!-- Grid column -->
+
+<hr class="clearfix w-100 d-md-none">
+
+<!-- Grid column -->
+<div class="col-md-2 mx-auto">
+
+ <!-- Links -->
+ <h5 class="font-weight-bold text-uppercase mt-3 mb-4">About Us</h5>
+
+ <ul class="list-unstyled">
+   <li>
+     <a href="#!">Blog</a>
+   </li>
+   <li>
+     <a href="#!">About us</a>
+   </li>
+   <li>
+     <a href="#!">Premium</a>
+   </li>
+   <li>
+     <a href="#!">Affiliated program</a>
+   </li>
+ </ul>
+
+</div>
+<!-- Grid column -->
+
+<hr class="clearfix w-100 d-md-none">
+
+<!-- Grid column -->
+<div class="col-md-2 mx-auto">
+
+ <!-- Links -->
+ <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help and Support</h5>
+
+ <ul class="list-unstyled">
+   <li>
+     <a href="#!">FAQ</a>
+   </li>
+   <li>
+     <a href="#!">Contact Us</a>
+   </li>
+   <li>
+     <a href="#!">Premium Support</a>
+   </li>
+   <li>
+     <a href="#!">Custom Developers</a>
+   </li>
+ </ul>
+
+</div>
+<!-- Grid column -->
+
+<hr class="clearfix w-100 d-md-none">
+
+<!-- Grid column -->
+<div class="col-md-2 mx-auto">
+
+ <!-- Links -->
+ <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Legal</h5>
+
+ <ul class="list-unstyled">
+   <li>
+     <a href="#!">Terms & Conditions</a>
+   </li>
+   <li>
+     <a href="#!">Privacy</a>
+   </li>
+ </ul>
+
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Links -->
+
+  <hr>
+
+  <!-- Social buttons -->
+  <ul class="list-unstyled list-inline text-center">
+    <li class="list-inline-item">
+      <a mdbBtn floating="true" color="fb" class="mx-1" mdbWavesEffect>
+        <mdb-icon fab icon="facebook"></mdb-icon>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a mdbBtn floating="true" color="tw" class="mx-1" mdbWavesEffect>
+        <mdb-icon fab icon="twitter"></mdb-icon>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a mdbBtn floating="true" color="gplus" class="mx-1" mdbWavesEffect>
+        <mdb-icon fab fab icon="google-plus"></mdb-icon>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a mdbBtn floating="true" color="li" class="mx-1" mdbWavesEffect>
+        <mdb-icon fab icon="linkedin"></mdb-icon>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a mdbBtn floating="true" color="dribbble" class="mx-1" mdbWavesEffect>
+        <mdb-icon fab icon="dribbble"></mdb-icon>
+      </a>
+    </li>
+  </ul>
+  <!-- Social buttons -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="#"> Docshelp.com</a>
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->

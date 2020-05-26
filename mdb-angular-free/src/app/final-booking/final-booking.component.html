@@ -1,0 +1,304 @@
+<!--Navbar-->
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark cyan" [containerInside]="false">
+
+    <!-- Navbar brand -->
+    <mdb-navbar-brand><h4 class="navbar-brand" style="color: black;"><strong> {{title}}</strong> </h4></mdb-navbar-brand>
+  
+    <!-- Collapsible content -->
+    <links>
+  
+      <!-- Links -->
+      <ul class="navbar-nav ml-auto">
+  
+        <li class="nav-item">
+          <a class="nav-link waves-light" mdbWavesEffect routerLink="/profilePatient"><mdb-icon fas icon="home"></mdb-icon>Profile<span class="sr-only">(current)</span></a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link waves-light" mdbWavesEffect routerLink="/patientAppointment"><mdb-icon far icon="plus-square"></mdb-icon>Book Appointment<span class="sr-only">(current)</span></a>
+          </li>
+  
+        <!-- <li class="nav-item">
+          <form class="form-inline waves-light waves-light ml-auto" mdbWavesEffect>
+            <div class="md-form my-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search Diseases" aria-label="Search">
+                <button mdbBtn color="white" outline="true" size="sm" class="my-0 waves-light" type="submit" mdbWavesEffect>Search</button>
+            </div>
+            </form>
+        </li>
+   -->
+         
+         <li class="nav-item dropdown" dropdown>
+          <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
+            <mdb-icon fas icon="user"></mdb-icon> {{Name}}<span class="caret"></span></a>
+          <div *dropdownMenu class="dropdown-menu dropdown-menu-right dropdown dropdown-primary" role="menu">
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientInfo"><strong>{{Name}}</strong><br>{{Email}}</a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientAppointmentList"> My Appointment </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > My Test </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > My Medical Report </a>
+            <!-- <a class="dropdown-item waves-light" mdbWavesEffect > My Feedback </a> -->
+            <a class="dropdown-item waves-light" mdbWavesEffect > View/Update profile </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect > settings </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect routerLink="/patientChangePassword"> Change Password </a>
+            <a class="dropdown-item waves-light" mdbWavesEffect (click)="logout()"> Log out </a>
+          </div>
+        </li>
+      </ul>
+      <!-- Links -->
+    </links>
+    <!-- Collapsible content -->
+  
+  </mdb-navbar>
+  <!--/.Navbar-->
+  <br>
+  <div *ngIf="flag" class="card" style="width:60%;margin-left: 20%;">
+    <div class="card-body"><h5 style="text-align:center;color: red;margin: 10px;">{{ errorMessage }}</h5></div> 
+  </div>
+  <br>
+  <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+              <h4 class="card-title">Online Appointment</h4><hr>
+              <div class="row">
+                  <div class="col-md-5">
+                    <img class="card-img-top" src="../../assets/images/user1.jpg" alt="Card image" style="width:100%;height: 150px;">
+                  </div>
+                  <div class="col-md-1"></div>
+                  <div class="col-md-6">
+                      <br>
+                    <h5 style="color: dodgerblue;font-weight: bolder;">Dr. {{DoctorName}}</h5>
+                     <p class="card-text">{{Specialization}}, {{Qualification}}<br>{{Experience}} of Experience,<br> Shift: {{DoctorShift}}</p>
+                  </div>
+              </div>              
+              <!-- <a href="#" class="btn btn-primary">See Profile</a> -->
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row cardform">
+            <div class="col-md-12">
+              <!--Card-->
+              <mdb-card cascade="true" wider="true" class="text-left">
+          
+                <mdb-card-body cascade="true">
+                    <form [formGroup]="bookingForm" (ngSubmit)="appointment()">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5 style="margin-top: 10px;"><strong>Patient Details</strong></h5>
+                        </div>
+                    </div><hr>          
+                  <mdb-card-text>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>This Appointment is For:</label>
+                                <select id="patient" class="form-control" [class.is-invalid]="patient.invalid && patient.touched" formControlName="patient" name="patient">
+                                    <option value="{{Name}}">{{Name}}</option>
+                                    <option value="Someone else">Someone else</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>Patient's Full Name</label>
+                                <input type="text" id="name" class="form-control" formControlName="name" name="name">
+                                <div *ngIf="name.invalid && name.touched">
+                                    <small class="text-danger" *ngIf="name.errors?.required">Name is required</small>
+                                    <small class="text-danger"  *ngIf="name.errors?.minlength">Name must be atleast 3 character</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>Email</label>
+                                <input type="text" id="email" class="form-control" formControlName="email" name="email">
+                                <div *ngIf="email.invalid && email.touched">
+                                    <small class="text-danger" *ngIf="email.errors?.required">Email is required</small>
+                                </div>
+                                <div *ngIf="email.errors?.email">
+                                    <small class="text-danger">Email not valid</small>
+                               </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <br>
+                                <label>Phone</label>
+                                <input type="text" id="phone" class="form-control" formControlName="phone" name="phone">
+                                <div *ngIf="phone.invalid && phone.touched">
+                                    <small class="text-danger" *ngIf="phone.errors?.required">Phone is required</small>
+                                    <small class="text-danger"  *ngIf="phone.errors?.minlength">Phone must be of 10 character</small>
+                                    <small class="text-danger"  *ngIf="phone.errors?.maxlength">Phone must be of 10 character</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <button mdbBtn class="waves-light btn-info" type="submit" style="margin-top: 25px;" mdbWavesEffect>Confirm Appointment</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p style="margin-top: 10px;">1. Updates will be sent to <span style="color: dodgerblue;">{{Email}}</span><br>
+                                By booking this appointment, you agree to DocsHelp's <span style="color: dodgerblue;">Terms and conditions</span> </p>
+                            </div>
+                        </div>
+                        </div>      
+                  
+                  </mdb-card-text>
+                </form>
+                </mdb-card-body>
+                <!--/.Card content-->
+          
+              </mdb-card>
+              <!--/.Card-->
+            </div>
+        </div>
+      </div>
+  </div>
+<br>
+  <!-- Footer -->
+<footer class="page-footer font-small stylish-color-dark pt-4">
+
+    <!-- Footer Links -->
+    <div class="container text-center text-md-left">
+  
+      <!-- Grid row -->
+      <div class="row">
+  
+        <!-- Grid column -->
+        <div class="col-md-4 mx-auto">
+  
+   <!-- Content -->
+   <h5 class="font-weight-bold mt-3 mb-4">DocsHelp</h5>
+   <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing
+     elit.</p>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">About Us</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Blog</a>
+     </li>
+     <li>
+       <a href="#!">About us</a>
+     </li>
+     <li>
+       <a href="#!">Premium</a>
+     </li>
+     <li>
+       <a href="#!">Affiliated program</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Help and Support</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">FAQ</a>
+     </li>
+     <li>
+       <a href="#!">Contact Us</a>
+     </li>
+     <li>
+       <a href="#!">Premium Support</a>
+     </li>
+     <li>
+       <a href="#!">Custom Developers</a>
+     </li>
+   </ul>
+  
+  </div>
+  <!-- Grid column -->
+  
+  <hr class="clearfix w-100 d-md-none">
+  
+  <!-- Grid column -->
+  <div class="col-md-2 mx-auto">
+  
+   <!-- Links -->
+   <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Legal</h5>
+  
+   <ul class="list-unstyled">
+     <li>
+       <a href="#!">Terms & Conditions</a>
+     </li>
+     <li>
+       <a href="#!">Privacy</a>
+     </li>
+   </ul>
+  
+  
+        </div>
+        <!-- Grid column -->
+  
+      </div>
+      <!-- Grid row -->
+  
+    </div>
+    <!-- Footer Links -->
+  
+    <hr>
+  
+    <!-- Social buttons -->
+    <ul class="list-unstyled list-inline text-center">
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="fb" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="facebook"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="tw" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="twitter"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="gplus" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab fab icon="google-plus"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="li" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="linkedin"></mdb-icon>
+        </a>
+      </li>
+      <li class="list-inline-item">
+        <a mdbBtn floating="true" color="dribbble" class="mx-1" mdbWavesEffect>
+          <mdb-icon fab icon="dribbble"></mdb-icon>
+        </a>
+      </li>
+    </ul>
+    <!-- Social buttons -->
+  
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="#"> Docshelp.com</a>
+    </div>
+    <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+  
