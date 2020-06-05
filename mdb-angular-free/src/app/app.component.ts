@@ -35,7 +35,7 @@ export class AppComponent {
 
   // when profileDoctor loaded
   change(url) {
-    if (url == "/profileDoctor" || url == "/doctorUpdate" || url == "/profilePatient" || url == "/profilePatient/true" || url == "/patientUpdate" || url == "/doctorInfo" || url == "/patientInfo"
+    if (url == "/profileDoctor" || url == "/doctorUpdate" || url == "/doctorUpdate/done" ||url == "/profilePatient" || url == "/profilePatient/true" || url == "/patientUpdate" || url == "/doctorInfo" || url == "/patientInfo"
       || url == "/doctorChangePassword" || url == "/doctorChangePassword/Password%20successfully%20changed" || url == "/patientChangePassword" || url == "/patientChangePassword/Password%20successfully%20changed"
       || url == "/patientAppointment" || url == "/doctorList" || url == "/finalBooking" || url == "/patientAppointmentList" || url == "/doctorAppointmentList" || url == "/patientdiseaseInfo" || url == "/patientdiseaseInfo/Disease%20Not%20Found"
       || url == "/doctordiseaseInfo" || url == "/doctordiseaseInfo/Disease%20Not%20Found" || url == "/doctorFeedback")

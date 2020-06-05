@@ -22,6 +22,7 @@ export class ProfileDoctorComponent implements OnInit {
   Spec = localStorage.getItem('Specialization');
   Day = localStorage.getItem('Day');
   Shift = localStorage.getItem('Shift');
+  PatientTime = localStorage.getItem('PatientTime');
 
   constructor(private router:Router,private appComponent:AppComponent,private fb: FormBuilder,private projectService: ProjectServicesService) { 
     //console.log(router.url)
@@ -66,14 +67,14 @@ export class ProfileDoctorComponent implements OnInit {
   length;
   flag2=false;
   ngOnInit(): void {
+    console.log(this.Avail)
+    if(this.Avail == "False"){
+      this.flag=true;
+    }
     this.appointments = JSON.parse(localStorage.getItem('BookedAppointments'));
     if(this.appointments !== ''){
       this.flag2 = true;
       this.length=this.appointments.length;
-    }
-
-    if(this.Avail == "False"){
-      this.flag=true;
     }
   }
 

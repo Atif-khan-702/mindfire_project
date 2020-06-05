@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { ProjectServicesService } from 'services/project-services.service';
 import { Patient } from '../Patient';
@@ -26,7 +26,7 @@ export class PatientUpdateComponent implements OnInit {
   ID = localStorage.getItem('ID');
 
 
-  constructor(private fb: FormBuilder,private router:Router,private appComponent:AppComponent,private projectService: ProjectServicesService) { 
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router:Router,private appComponent:AppComponent,private projectService: ProjectServicesService) { 
     this.appComponent.change(router.url)
   }
 
@@ -101,8 +101,14 @@ export class PatientUpdateComponent implements OnInit {
 };
 
 
-  ngOnInit(): void {
+flag = false;
+InfoMessage;
+ngOnInit() {
+  if(this.route.snapshot.paramMap.get('Message')){
+    this.InfoMessage= 'Record is updated successfully!';
+    this.flag=true;
   }
+}
 
   updateForm = this.fb.group({
     id:[this.ID],
@@ -124,31 +130,9 @@ export class PatientUpdateComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  onSubmit(){
+  update(){
     console.log(this.updateForm.value);
-    // this.projectService.updateDoctor(this.updateForm.value)
-    // .subscribe(patient => this.patient = patient);
-    // if(this.role=="Student"){
-    //   this.updateService.updateStudent(this.updateForm.value)
-    //   .subscribe(student => this.student = student);
-    //   if(this.student.Middle_Name == ""){
-    //     localStorage.setItem('Name',this.student.First_Name +" "+ this.student.Last_Name);
-    //   }else{
-    //     localStorage.setItem('Name',this.student.First_Name +" "+ this.student.Middle_Name +" "+ this.student.Last_Name);
-    //   }
-    //     localStorage.setItem('father', this.student.Father_Name);
-    //     localStorage.setItem('mother',this.student.Mother_Name);
-    //     localStorage.setItem('email', this.student.Email);
-    //     localStorage.setItem('phone', this.student.Phone);
-    //     localStorage.setItem('adhar',this.student.Adhar);
-    //     localStorage.setItem('gender', this.student.Gender);
-    //     localStorage.setItem('dob', this.student.DOB);
-    //     localStorage.setItem('country', this.student.Country);
-    //     localStorage.setItem('state', this.student.State);
-    //     localStorage.setItem('city', this.student.City);
-    //     localStorage.setItem('ID', this.student.ID);
-    //     this.route.navigate(['/profile', 'true']);
-    // }
+    this.projectService.updatePatient(this.updateForm.value)
   }
 
 }

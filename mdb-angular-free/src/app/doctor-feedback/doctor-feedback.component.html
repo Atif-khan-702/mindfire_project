@@ -47,13 +47,12 @@
 </div> -->
 
 <!--Grid row-->
-<div class="row cardform" *ngFor="let appointment of appointments">
+<div class="row cardform">
 
-    <div class="col-md-1"></div>
+    <!-- <div class="col-md-1"></div> -->
   <!--Grid column-->
-    <div class="col-md-10" *ngIf="appointment['Feedback'] !== ''">
-  
-      <mdb-card class="testimonial-card">
+    <div class="col-md-4" *ngFor="let appointment of appointments">  
+      <mdb-card class="testimonial-card" *ngIf="appointment['Feedback'] !== ''" style="height: 100% !important">
         <!--Bacground color-->
   
         <mdb-card-body>
@@ -71,6 +70,6 @@
       </mdb-card>
   
     </div>
-    <!--Grid column-->  
-  </div>
+    <!--Grid column--> 
+  </div> 
   <!--Grid row-->

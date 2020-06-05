@@ -40,7 +40,8 @@ export class DoctorAppointmentListComponent implements OnInit {
   }
 
   served(appointment){
-    console.log(appointment)
+    // console.log(appointment)
+    // console.log(appointment['AppointmentId']);
     this.projectService.servedAppointment(appointment);
   }
 

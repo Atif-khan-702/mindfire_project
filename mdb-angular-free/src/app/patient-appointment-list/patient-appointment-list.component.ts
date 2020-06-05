@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ProjectServicesService } from 'services/project-services.service';
 
 @Component({
   selector: 'app-patient-appointment-list',
@@ -18,7 +19,7 @@ export class PatientAppointmentListComponent implements OnInit {
   Gender = localStorage.getItem('Gender');
   appointments;
 
-  constructor(private router:Router,private appComponent:AppComponent,private route: ActivatedRoute, private fb: FormBuilder) { 
+  constructor(private router:Router,private appComponent:AppComponent,private route: ActivatedRoute, private fb: FormBuilder, private _projectService: ProjectServicesService) { 
     //console.log(router.url)
     this.appComponent.change(router.url)
   }
@@ -26,13 +27,16 @@ export class PatientAppointmentListComponent implements OnInit {
   get feedback(){
     return this.feedbackForm.get('feedback');
   }
+  get appointmentId(){
+    return this.feedbackForm.get('appointmentId');
+  }
   msg;
   Appointment;
   flag1=false;
   flag=false;
   ngOnInit(): void {
     this.appointments = JSON.parse(localStorage.getItem('BookedAppointments'));
-    console.log(this.appointments);
+    // console.log(this.appointments);
     if(this.appointments !== ''){
       this.msg = "Here is Your Booked Appointments List";
       this.flag=true;
@@ -47,17 +51,22 @@ export class PatientAppointmentListComponent implements OnInit {
 
   }
 
+  feedbackForm = this.fb.group({
+    feedback:['',[Validators.required]],
+    appointmentId:['']
+  });
+
+  addFeedback(val){
+    this.feedbackForm.patchValue({
+      appointmentId: val
+   });
+    console.log(this.feedbackForm.value);
+    this._projectService.addFeedback(this.feedbackForm.value);
+  }
+
   logout(){
     localStorage.clear();
     this.appComponent.restore("/home")
     this.router.navigate(['/home']);
-  }
-
-  feedbackForm = this.fb.group({
-    feedback:['',[Validators.required, Validators.minLength(3)]]
-  });
-
-  onSubmit(){
-    console.log(this.feedbackForm.value);
   }
 }

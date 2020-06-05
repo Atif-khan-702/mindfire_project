@@ -52,13 +52,16 @@
   <!--/.Navbar-->
 
 <br>
+<div *ngIf="flag" class="card" style="width:60%;margin-left: 20%;">
+  <div class="card-body"><h5 style="text-align:center;color: green;margin: 10px;">{{ InfoMessage }}</h5></div> 
+</div>
   <div class="row cardform">
     <div class="col-md-12">
       <!--Card-->
       <mdb-card cascade="true" wider="true" class="text-left">
   
         <mdb-card-body cascade="true">
-            <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+            <form [formGroup]="updateForm" (ngSubmit)="update()">
             <div class="row">
                 <div class="col-md-2">
                     <h5 style="margin-top: 10px;"><strong>Accounts</strong></h5>

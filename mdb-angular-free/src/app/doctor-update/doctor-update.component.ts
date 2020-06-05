@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators, FormBuilder} from "@angular/forms";
 import { PasswordValidator } from '../shared/password.validator';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AppComponent } from '../app.component';
 import { ProjectServicesService } from 'services/project-services.service';
 import { Doctor } from '../Doctor';
@@ -34,7 +34,7 @@ export class DoctorUpdateComponent implements OnInit {
   TimeSlot = localStorage.getItem('TimeSlot');
   PatientTime = localStorage.getItem('PatientTime');
 
-  constructor(private fb: FormBuilder,private router:Router,private appComponent:AppComponent,private projectService: ProjectServicesService) {
+  constructor(private fb: FormBuilder, private route: ActivatedRoute, private router:Router,private appComponent:AppComponent,private projectService: ProjectServicesService) {
     // console.log(this.DOB)
     this.appComponent.change(router.url)
    }
@@ -148,10 +148,14 @@ export class DoctorUpdateComponent implements OnInit {
     this.cityArray = stateCitiesMap[event];
 };
 
-  
-
-  
-  ngOnInit() {}
+  flag = false;
+  InfoMessage;
+  ngOnInit() {
+    if(this.route.snapshot.paramMap.get('Message')){
+      this.InfoMessage= 'Record is updated successfully!';
+      this.flag=true;
+    }
+  }
 
   updateForm = this.fb.group({
     id1:[this.ID],
@@ -186,37 +190,14 @@ export class DoctorUpdateComponent implements OnInit {
     this.router.navigate(['/home']);
   }
 
-  onSubmit(){
-    // console.log(this.updateForm.value);
-    this.projectService.updateDoctor(this.updateForm.value)
-    // .subscribe(doctor => this.doctor = doctor);
-    // if(this.role=="Student"){
-    //   this.updateService.updateStudent(this.updateForm.value)
-    //   .subscribe(student => this.student = student);
-    //   if(this.student.Middle_Name == ""){
-    //     localStorage.setItem('Name',this.student.First_Name +" "+ this.student.Last_Name);
-    //   }else{
-    //     localStorage.setItem('Name',this.student.First_Name +" "+ this.student.Middle_Name +" "+ this.student.Last_Name);
-    //   }
-    //     localStorage.setItem('father', this.student.Father_Name);
-    //     localStorage.setItem('mother',this.student.Mother_Name);
-    //     localStorage.setItem('email', this.student.Email);
-    //     localStorage.setItem('phone', this.student.Phone);
-    //     localStorage.setItem('adhar',this.student.Adhar);
-    //     localStorage.setItem('gender', this.student.Gender);
-    //     localStorage.setItem('dob', this.student.DOB);
-    //     localStorage.setItem('country', this.student.Country);
-    //     localStorage.setItem('state', this.student.State);
-    //     localStorage.setItem('city', this.student.City);
-    //     localStorage.setItem('ID', this.student.ID);
-    //     this.route.navigate(['/profile', 'true']);
-    // }
-   
+  update(){
+    //console.log(this.updateForm.value);
+    this.projectService.updateDoctor(this.updateForm.value);   
   }
 
   availability(){
-    console.log(this.availableForm.value)
-    this.projectService.addAvailability(this.availableForm.value)
+    // console.log(this.availableForm.value)
+    this.projectService.updateAvailability(this.availableForm.value)
   }
 
 }
