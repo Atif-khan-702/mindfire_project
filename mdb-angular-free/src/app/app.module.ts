@@ -38,6 +38,7 @@ import { PatientDiseaseInfoComponent } from './patient-disease-info/patient-dise
 import { DoctorDiseaseInfoComponent } from './doctor-disease-info/doctor-disease-info.component';
 import { DoctorFeedbackComponent } from './doctor-feedback/doctor-feedback.component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     DiseaseInfoComponent,
     PatientDiseaseInfoComponent,
     DoctorDiseaseInfoComponent,
-    DoctorFeedbackComponent
+    DoctorFeedbackComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

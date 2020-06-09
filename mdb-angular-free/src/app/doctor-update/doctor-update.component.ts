@@ -171,7 +171,8 @@ export class DoctorUpdateComponent implements OnInit {
     city:[this.City,[Validators.required]],
     specialization:[this.Specialization,[Validators.required]],
     experience:[this.Experience,[Validators.required]],
-    qualification:[this.Qualification,[Validators.required]]
+    qualification:[this.Qualification,[Validators.required]],
+    image: ['']
     
   });
 
@@ -191,7 +192,7 @@ export class DoctorUpdateComponent implements OnInit {
   }
 
   update(){
-    //console.log(this.updateForm.value);
+    console.log(this.updateForm.value);
     this.projectService.updateDoctor(this.updateForm.value);   
   }
 
